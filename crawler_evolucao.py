@@ -28,8 +28,9 @@ def pega_codigos_pacientes():
             except:
                 print('Não é possivel passar o item.text pra numero inteiro.')
                 pass
-
+        time.sleep(1)
     return lista_codigo_paciente 
+    
 
 
 
@@ -44,24 +45,22 @@ def pega_evolucao_tratamento(codigos_dos_pacientes):
             'PHPSESSID': 'qasa4a1etcncq5kpqdgg5195i0'
             })
 
+
         # localiza todas as fonts #
         evolucao_content = BeautifulSoup(r.text, 'html.parser')
         all_fonts = evolucao_content.find_all('font')
         
+
         # pega e trata o nome do paciente na font #
         nome_paciente_font = all_fonts[3]
         nome_paciente = nome_paciente_font.find('b').text
         print('Evolução do tratamento do paciente', nome_paciente)
 
+
         # pega conteúdo do tratamento do paciente #  
         all_tables = evolucao_content.find_all('table')
         table_rows = all_tables[2].find_all('tr')
-    
-    
-        #table_row = table_rows.text
 
-
-        #procedimentos_paciente = table_row.text.replace('\n', '')
 
         # cria dicionario paciente #
         logging.info('Criando ficha com informações do tratamento do paciente {}'.format(i))
@@ -91,6 +90,7 @@ def pega_evolucao_tratamento(codigos_dos_pacientes):
             paciente_evolucao_dict['procedimentos'].append(procedimento_dict)
 
         tratamentos_list.append(paciente_evolucao_dict)
+        time.sleep(1)
 
     return tratamentos_list
 
